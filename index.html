@@ -477,7 +477,6 @@ h1{
 <div class="video-player">
 
     <video id="bgVideo"
-           autoplay
            loop
            controls
            playsinline>
@@ -521,6 +520,8 @@ video.volume = 0;
 
 function startVideo(){
 
+    video.currentTime = 0;
+
     video.play();
 
     let volume = 0;
@@ -541,14 +542,6 @@ function startVideo(){
 
     },200);
 }
-
-/* DESBLOQUEIO MOBILE */
-
-document.addEventListener('click', () => {
-
-    video.play();
-
-}, { once:true });
 
 /* CARROSSEL */
 
