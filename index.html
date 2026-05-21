@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Leonardo e Amanda</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#111018;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* FUNDO CINEMATOGRÁFICO */
+
+body::before{
+    content:'';
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:
+    radial-gradient(circle at top,#ff4a4a22,transparent 40%),
+    radial-gradient(circle at bottom,#ffffff10,transparent 35%);
+    z-index:-2;
+}
+
+body::after{
+    content:'';
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:url('https://www.transparenttextures.com/patterns/stardust.png');
+    opacity:0.08;
+    z-index:-1;
+    animation:moveBg 40s linear infinite;
+}
+
+@keyframes moveBg{
+    from{
+        transform:translateY(0);
+    }
+    to{
+        transform:translateY(-200px);
+    }
+}
+
+/* LOGIN */
+
+.login-screen{
+    position:fixed;
+    width:100%;
+    height:100vh;
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.login-box{
+    background:rgba(255,255,255,0.08);
+    padding:40px;
+    border-radius:25px;
+    backdrop-filter:blur(15px);
+    width:320px;
+    text-align:center;
+    box-shadow:0 0 35px rgba(0,0,0,0.6);
+    animation:fadeIn 1.5s ease;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.login-box h1{
+    margin-bottom:20px;
+    font-size:38px;
+    color:#ff4a4a;
+    font-family:'Great Vibes',cursive;
+    font-weight:normal;
+}
+
+.login-box input{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    margin-bottom:15px;
+    outline:none;
+    font-size:16px;
+    background:#ffffff15;
+    color:white;
+}
+
+.login-box button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:#ff3b3b;
+    color:white;
+    cursor:pointer;
+    font-size:16px;
+    transition:0.3s;
+}
+
+.login-box button:hover{
+    transform:scale(1.05);
+    background:#ff1f1f;
+}
+
+.error{
+    color:#ff6b6b;
+    margin-top:10px;
+    display:none;
+}
+
+/* SITE */
+
+.site-content{
+    display:none;
+    width:100%;
+    min-height:100vh;
+    padding:30px 20px 120px;
+    text-align:center;
+    animation:fadeSite 1.5s ease;
+}
+
+@keyframes fadeSite{
+    from{
+        opacity:0;
+    }
+    to{
+        opacity:1;
+    }
+}
+
+/* CARROSSEL */
+
+.carousel{
+    position:relative;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:auto;
+}
+
+.slides{
+    position:relative;
+    width:95%;
+    max-width:1400px;
+    height:900px;
+    margin:auto;
+    overflow:hidden;
+    border-radius:30px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow:0 0 40px rgba(0,0,0,0.7);
+}
+
+.slides img{
+    position:absolute;
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    object-position:center;
+    opacity:0;
+    transition:
+    opacity 1.5s ease,
+    transform 8s ease;
+    background:#111018;
+    transform:scale(1.08);
+}
+
+.slides img.active{
+    opacity:1;
+    transform:scale(1);
+}
+
+/* DOTS */
+
+.dots{
+    display:flex;
+    justify-content:center;
+    margin-top:20px;
+    gap:10px;
+}
+
+.dot{
+    width:15px;
+    height:15px;
+    border-radius:50%;
+    background:#bbb;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.dot.active{
+    background:#ff3b3b;
+    transform:scale(1.2);
+}
+
+/* TITULO */
+
+h1{
+    margin-top:40px;
+    font-size:82px;
+    color:#ff4a4a;
+    font-family:'Great Vibes',cursive;
+    font-weight:normal;
+    text-shadow:0 0 20px rgba(255,74,74,0.5);
+}
+
+/* TEXTO */
+
+.text{
+    margin-top:25px;
+    font-size:21px;
+    line-height:1.9;
+    max-width:850px;
+    margin-left:auto;
+    margin-right:auto;
+    color:#f2f2f2;
+}
+
+/* CONTADOR */
+
+.timer-title{
+    margin-top:80px;
+    font-size:42px;
+    font-weight:bold;
+}
+
+.timer{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+    max-width:700px;
+    margin:40px auto;
+}
+
+.box{
+    background:rgba(0,0,0,0.7);
+    padding:30px 10px;
+    border-radius:20px;
+    box-shadow:0 0 20px rgba(0,0,0,0.5);
+    backdrop-filter:blur(10px);
+}
+
+.number{
+    font-size:60px;
+    font-weight:bold;
+}
+
+.label{
+    font-size:20px;
+    margin-top:10px;
+}
+
+.date{
+    font-size:32px;
+    margin-top:40px;
+    color:white;
+}
+
+/* PLAYER DE VIDEO */
+
+.video-player{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    z-index:999;
+    background:rgba(0,0,0,0.5);
+    padding:10px;
+    border-radius:20px;
+    backdrop-filter:blur(10px);
+    box-shadow:0 0 25px rgba(0,0,0,0.6);
+    animation:fadeVideo 2s ease;
+}
+
+.video-player video{
+    width:320px;
+    border-radius:15px;
+}
+
+@keyframes fadeVideo{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* RESPONSIVO */
+
+@media(max-width:768px){
+
+    h1{
+        font-size:54px;
+    }
+
+    .timer-title{
+        font-size:30px;
+    }
+
+    .timer{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .number{
+        font-size:45px;
+    }
+
+    .slides{
+        width:100%;
+        height:650px;
+    }
+
+    .video-player{
+        right:50%;
+        transform:translateX(50%);
+        bottom:15px;
+    }
+
+    .video-player video{
+        width:240px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+
+<div class="login-screen" id="loginScreen">
+
+    <div class="login-box">
+
+        <h1>Área Protegida</h1>
+
+        <input type="password" id="password" placeholder="Digite a senha">
+
+        <button onclick="checkPassword()">
+            Entrar
+        </button>
+
+        <p class="error" id="error">
+            Senha incorreta!
+        </p>
+
+    </div>
+
+</div>
+
+<!-- SITE -->
+
+<div class="site-content" id="siteContent">
+
+    <!-- CARROSSEL -->
+
+    <div class="carousel">
+
+        <div class="slides">
+
+            <img src="foto1.JPG" class="active">
+
+            <img src="foto2.JPG">
+
+            <img src="foto3.jpg">
+
+        </div>
+
+    </div>
+
+    <!-- DOTS -->
+
+    <div class="dots">
+
+        <span class="dot active" onclick="showSlide(0)"></span>
+
+        <span class="dot" onclick="showSlide(1)"></span>
+
+        <span class="dot" onclick="showSlide(2)"></span>
+
+    </div>
+
+    <!-- TITULO -->
+
+    <h1>Leonardo e Amanda</h1>
+
+    <!-- TEXTO -->
+
+    <div class="text">
+
+        Cada momento ao seu lado é um presente que a vida me deu, e eu sou eternamente grato por ter você como minha. Você é a razão do meu sorriso, a calma nos meus dias turbulentos e a alegria que ilumina o meu coração.
+​Começamos como bons amigos. Eu nunca imaginei que iríamos compartilhar tantos momentos ótimos juntos, pois sempre tive receio de estragar a amizade que tínhamos. Sempre te admirei de longe e via o quão esforçada você era; mas, ao mesmo tempo, você era fria comigo e eu era estranho com você. Mesmo assim, éramos felizes. Vivíamos brigando, zoando, mandando memes e, às vezes, até tomando alguns blocks no decorrer da nossa amizade.
+​No entanto, tudo tinha um porquê. Tudo mudou quando decidimos sair dessa bolha e arriscar algo novo, e essa foi a melhor escolha que já fiz. Foi assim que pude conhecer o seu outro lado: carinhosa, amorosa e companheira. Isso era tudo o que eu sempre pedi a Deus. Amo estar com você e amo cada momento ao seu lado! ❤️
+
+    </div>
+
+    <!-- CONTADOR -->
+
+    <div class="timer-title">
+        Compartilhando momentos há
+    </div>
+
+    <div class="timer">
+
+        <div class="box">
+            <div class="number" id="years">00</div>
+            <div class="label">Anos</div>
+        </div>
+
+        <div class="box">
+            <div class="number" id="months">00</div>
+            <div class="label">Meses</div>
+        </div>
+
+        <div class="box">
+            <div class="number" id="days">00</div>
+            <div class="label">Dias</div>
+        </div>
+
+        <div class="box">
+            <div class="number" id="hours">00</div>
+            <div class="label">Horas</div>
+        </div>
+
+        <div class="box">
+            <div class="number" id="minutes">00</div>
+            <div class="label">Minutos</div>
+        </div>
+
+        <div class="box">
+            <div class="number" id="seconds">00</div>
+            <div class="label">Segundos</div>
+        </div>
+
+    </div>
+
+    <!-- DATA -->
+
+    <div class="date">
+        ❤️ Desde 06/04/2026 ❤️
+    </div>
+
+</div>
+
+<!-- VIDEO PLAYER -->
+
+<div class="video-player">
+
+    <video id="bgVideo"
+           autoplay
+           loop
+           controls
+           playsinline>
+
+        <source src="video.mp4" type="video/mp4">
+
+    </video>
+
+</div>
+
+<script>
+
+/* SENHA */
+
+const correctPassword = "1234";
+
+function checkPassword(){
+
+    const password = document.getElementById('password').value;
+
+    if(password === correctPassword){
+
+        document.getElementById('loginScreen').style.display = 'none';
+
+        document.getElementById('siteContent').style.display = 'block';
+
+        startVideo();
+
+    }else{
+
+        document.getElementById('error').style.display = 'block';
+
+    }
+}
+
+/* VIDEO CINEMATOGRÁFICO */
+
+const video = document.getElementById('bgVideo');
+
+video.volume = 0;
+
+function startVideo(){
+
+    video.play();
+
+    let volume = 0;
+
+    const fade = setInterval(() => {
+
+        if(volume < 0.4){
+
+            volume += 0.02;
+
+            video.volume = volume;
+
+        }else{
+
+            clearInterval(fade);
+
+        }
+
+    },200);
+}
+
+/* DESBLOQUEIO MOBILE */
+
+document.addEventListener('click', () => {
+
+    video.play();
+
+}, { once:true });
+
+/* CARROSSEL */
+
+const slides = document.querySelectorAll('.slides img');
+
+const dots = document.querySelectorAll('.dot');
+
+let currentSlide = 0;
+
+function showSlide(index){
+
+    slides.forEach(slide => slide.classList.remove('active'));
+
+    dots.forEach(dot => dot.classList.remove('active'));
+
+    slides[index].classList.add('active');
+
+    dots[index].classList.add('active');
+
+    currentSlide = index;
+}
+
+setInterval(() => {
+
+    currentSlide++;
+
+    if(currentSlide >= slides.length){
+        currentSlide = 0;
+    }
+
+    showSlide(currentSlide);
+
+}, 5000);
+
+/* CONTADOR */
+
+const startDate = new Date('2026-04-06T00:00:00');
+
+function updateTimer(){
+
+    const now = new Date();
+
+    const diff = now - startDate;
+
+    const seconds = Math.floor(diff / 1000) % 60;
+
+    const minutes = Math.floor(diff / (1000 * 60)) % 60;
+
+    const hours = Math.floor(diff / (1000 * 60 * 60)) % 24;
+
+    const daysTotal = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+    const years = Math.floor(daysTotal / 365);
+
+    const months = Math.floor((daysTotal % 365) / 30);
+
+    const days = (daysTotal % 365) % 30;
+
+    document.getElementById('years').innerText = String(years).padStart(2,'0');
+
+    document.getElementById('months').innerText = String(months).padStart(2,'0');
+
+    document.getElementById('days').innerText = String(days).padStart(2,'0');
+
+    document.getElementById('hours').innerText = String(hours).padStart(2,'0');
+
+    document.getElementById('minutes').innerText = String(minutes).padStart(2,'0');
+
+    document.getElementById('seconds').innerText = String(seconds).padStart(2,'0');
+}
+
+setInterval(updateTimer,1000);
+
+updateTimer();
+
+</script>
+
+</body>
+</html>
